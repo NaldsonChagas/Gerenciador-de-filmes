@@ -1,3 +1,5 @@
+const QueryByTable = require('../utils/QueryByTable');
+
 const CreateConnection = require('../utils/CreateConnection');
 
 module.exports = class Dao {
@@ -35,7 +37,7 @@ module.exports = class Dao {
   }
 
   insert(values) {
-    const sql = `INSERT INTO ${this._table} (title, description, author_id) values (?)`;
+    const sql = QueryByTable.insertQuery(this._table);
     return new Promise((resolve, reject) => {
       this._conn.connect(() => {
 
@@ -63,7 +65,7 @@ module.exports = class Dao {
   }
 
   update(values) {
-    const sql = `UPDATE Movies SET title = ?, description = ?, author_id = ? WHERE id = ?`;
+    const sql = QueryByTable.updateQuery(this._table);
     return new Promise((resolve, reject) => {
       this._conn.connect(() => {
 
