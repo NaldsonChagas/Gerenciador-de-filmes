@@ -19,6 +19,12 @@ router.post('/', (req, res) => {
       err => res.status(400).json(err));
 });
 
+router.get('/:id', (req, res) => {
+  dao.listOne(req.params.id)
+    .then(result => res.status(200).json(result),
+      err => res.status(400).json({ error: err }));
+});
+
 router.delete('/:id', (req, res) => {
   dao.delete(parseInt(req.params.id))
     .then(result => res.status(200).json(result),

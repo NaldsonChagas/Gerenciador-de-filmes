@@ -19,6 +19,20 @@ module.exports = class MovieDao {
     });
   }
 
+  listOne(id) {
+    const sql = 'SELECT * FROM Movies WHERE id = ?';
+    return new Promise((resolve, reject) => {
+      this._conn.connect(() => {
+
+        this._conn.query(sql, [id], (err, result, fields) => {
+          if (err) reject(err);
+          resolve(result);
+        });
+
+      });
+    });
+  }
+
   insert(values) {
     const sql = 'INSERT INTO Movies (title, description, author_id) values (?)';
     return new Promise((resolve, reject) => {
