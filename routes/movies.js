@@ -1,12 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const conn = require('../utils/createConnection');
-const MovieDao = require('./../dao/MovieDao');
 
-const movieDao = new MovieDao(conn);
+const MovieDao = require('./../dao/MovieDao');
+const dao = new MovieDao();
 
 router.get('/', (req, res) => {
-  movieDao.list()
+  dao.list()
     .then(result => {
       res.status(200).json(result);
     }, err => {
@@ -14,6 +13,10 @@ router.get('/', (req, res) => {
     });
 });
 
-
+router.post('/', (req, res) => {
+  dao.insert([req.body.title, req.body.description, req.body.author_id])
+    .then(result => res.status(200).json(result),
+      err => reject(err));
+});
 
 module.exports = router;
