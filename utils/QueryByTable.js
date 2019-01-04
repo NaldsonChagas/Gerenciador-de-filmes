@@ -1,8 +1,8 @@
 module.exports = class QueryByTable {
 
   static insertQuery(table) {
-    if (table === 'Movie')
-      return `INSERT INTO Movie (title, description, director_id) values (?)`;
+    if (table === 'Movies')
+      return `INSERT INTO Movies (title, description, director_id) values (?)`;
     else 
       return `INSERT INTO Director (name) VALUES (?)`;
   }
