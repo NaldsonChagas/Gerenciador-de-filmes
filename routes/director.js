@@ -21,4 +21,20 @@ router.post('/', (req, res) => {
 
 });
 
+router.delete('/:id', (req, res) => {
+
+  dao.delete([req.params.id])
+    .then(result => response(res, 200, result),
+      err => response(res, 400, err));
+
+});
+
+router.put('/:id', (req, res) => {
+
+  dao.update([req.body.name, req.params.id])
+    .then(result => response(res, 200, result),
+      err => response(res, 400, err));
+
+});
+
 module.exports = router;
