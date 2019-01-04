@@ -36,6 +36,20 @@ module.exports = class Dao {
     });
   }
 
+  listMoviesByDirector(director) {
+    const sql = `SELECT * FROM Movies as m JOIN Director as d on m.director_id = d.id WHERE d.id = ?`;
+    return new Promise((resolve, reject) => {
+      this._conn.connect(() => {
+
+        this._conn.query(sql, [director], (err, result, fields) => {
+          if (err) reject(err);
+          resolve(result);
+        });
+
+      });
+    });
+  }
+
   insert(values) {
     const sql = QueryByTable.insertQuery(this._table);
     return new Promise((resolve, reject) => {

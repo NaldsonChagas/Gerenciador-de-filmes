@@ -42,4 +42,10 @@ router.put('/:id', (req, res) => {
     err => response(res, 400, err));
 });
 
+router.get('/director/:id', (req, res) => {
+  dao.listMoviesByDirector(parseInt(req.params.id))
+    .then(result => response(res, 200, result),
+      err => response(res, 400, err));
+});
+
 module.exports = router;
