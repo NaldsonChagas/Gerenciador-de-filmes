@@ -28,7 +28,21 @@ module.exports = class MovieDao {
           if (err) reject(err);
           resolve(result);
         });
-        
+
+      });
+    });
+  }
+
+  delete(id) {
+    const sql = 'DELETE FROM Movies WHERE id = ?';
+    return new Promise((resolve, reject) => {
+      this._conn.connect(() => {
+
+        this._conn.query(sql, [id], (err, result, fields) => {
+          if (err) reject(err);
+          resolve(result);
+        });
+
       });
     });
   }
