@@ -46,4 +46,18 @@ module.exports = class MovieDao {
       });
     });
   }
+
+  update(values) {
+    const sql = `UPDATE Movies SET title = ?, description = ?, author_id = ? WHERE id = ?`;
+    return new Promise((resolve, reject) => {
+      this._conn.connect(() => {
+
+        this._conn.query(sql, values, (err, result, fields) => {
+          if (err) reject(err);
+          resolve(result)
+        });
+
+      });
+    });
+  }
 }

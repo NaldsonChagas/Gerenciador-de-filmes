@@ -16,13 +16,23 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   dao.insert([req.body.title, req.body.description, req.body.author_id])
     .then(result => res.status(200).json(result),
-      err => reject(err));
+      err => res.status(400).json(err));
 });
 
 router.delete('/:id', (req, res) => {
   dao.delete(parseInt(req.params.id))
     .then(result => res.status(200).json(result),
       err => res.status(400).json(err));
+});
+
+router.put('/:id', (req, res) => {
+  dao.update([
+    req.body.title,
+    req.body.description,
+    req.body.author_id,
+    req.params.id
+  ]).then(result => res.status(200).json(result),
+    err => res.status(400).json(err));
 });
 
 module.exports = router;
