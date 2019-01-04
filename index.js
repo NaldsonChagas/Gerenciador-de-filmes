@@ -8,7 +8,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use('/', indexRouter);
 app.use('/movies', movieRouter);
-app.use('/author', directorRouter);
+app.use('/director', directorRouter);
 
 app.listen(3000, 'localhost', () => {
   console.log('Listen on 3000 port');
