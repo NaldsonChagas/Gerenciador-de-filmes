@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 const response = require('./../utils/response');
-const MovieDao = require('./../dao/MovieDao');
-const dao = new MovieDao();
+const Dao = require('../dao/Dao');
+const dao = new Dao('Movies');
 
 router.get('/', (req, res) => {
   dao.list()

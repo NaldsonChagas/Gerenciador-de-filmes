@@ -1,16 +1,17 @@
 const CreateConnection = require('../utils/CreateConnection');
 
-module.exports = class MovieDao {
+module.exports = class Dao {
 
-  constructor() {
+  constructor(table) {
     this._conn = CreateConnection.create();
+    this._table = table;
   }
 
   list() {
     return new Promise((resolve, reject) => {
       this._conn.connect(() => {
 
-        this._conn.query('SELECT * FROM Movies', (err, results, fields) => {
+        this._conn.query(`SELECT * FROM ${this._table}`, (err, results, fields) => {
           if (err) reject(err);
           resolve(results);
         });
@@ -20,7 +21,7 @@ module.exports = class MovieDao {
   }
 
   listOne(id) {
-    const sql = 'SELECT * FROM Movies WHERE id = ?';
+    const sql = `SELECT * FROM ${this._table} WHERE id = ?`;
     return new Promise((resolve, reject) => {
       this._conn.connect(() => {
 
@@ -34,7 +35,7 @@ module.exports = class MovieDao {
   }
 
   insert(values) {
-    const sql = 'INSERT INTO Movies (title, description, author_id) values (?)';
+    const sql = `INSERT INTO ${this._table} (title, description, author_id) values (?)`;
     return new Promise((resolve, reject) => {
       this._conn.connect(() => {
 
@@ -48,7 +49,7 @@ module.exports = class MovieDao {
   }
 
   delete(id) {
-    const sql = 'DELETE FROM Movies WHERE id = ?';
+    const sql = `DELETE FROM ${this._table} WHERE id = ?`;
     return new Promise((resolve, reject) => {
       this._conn.connect(() => {
 
